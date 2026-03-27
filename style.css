@@ -1,0 +1,324 @@
+/* Estilos baseados na Netflix */
+
+/* Estiliza o corpo da página */
+:root {
+    --bg: #000000;
+    --text: #ffffff;
+    --primary: #e50914;
+    --muted: #b3b3b3;
+    --card-bg: #111111;
+}
+
+body {
+    margin: 0; /* Remove margens externas */
+    padding: 0; /* Remove preenchimento interno */
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* Define a família de fontes, priorizando Helvetica Neue */
+    background-color: var(--bg); /* Define o fundo */
+    color: var(--text); /* Define a cor do texto */
+    min-height: 100vh; /* Define altura mínima como 100% da altura da viewport */
+    display: flex; /* Usa flexbox para layout */
+    flex-direction: column; /* Organiza os filhos em coluna */
+    align-items: center; /* Centraliza horizontalmente os itens */
+    justify-content: center; /* Centraliza verticalmente os itens */
+}
+
+body.light-mode {
+    --bg: #f4f4f4;
+    --text: #111111;
+    --primary: #e50914;
+    --muted: #4f4f4f;
+    --card-bg: #ffffff;
+}
+
+body.dark-mode {
+    --bg: #000000;
+    --text: #ffffff;
+    --primary: #e50914;
+    --muted: #b3b3b3;
+    --card-bg: #111111;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+#theme-toggle {
+    width: 52px;
+    height: 28px;
+    border: 2px solid var(--muted);
+    border-radius: 999px;
+    background-color: var(--card-bg);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+
+#theme-toggle::before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 20px;
+    height: 20px;
+    background-color: var(--primary);
+    border-radius: 50%;
+    transition: transform 0.25s ease;
+}
+
+#theme-toggle.active::before {
+    transform: translateX(24px);
+}
+
+#theme-toggle:hover,
+#theme-toggle:focus-visible {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.25);
+}
+
+
+/* Estiliza o cabeçalho */
+header {
+    text-align: center; /* Centraliza o texto */
+    margin-bottom: 2rem; /* Adiciona margem inferior de 2 rem */
+}
+
+/* Estiliza o título principal no cabeçalho */
+header h1 {
+    font-size: 3rem; /* Define o tamanho da fonte como 3 rem */
+    font-weight: bold; /* Define o peso da fonte como negrito */
+    margin: 0; /* Remove margens */
+    color: #e50914; /* Define a cor como vermelho Netflix */
+}
+
+/* Estiliza o parágrafo no cabeçalho */
+header p {
+    font-size: 1.2rem; /* Define o tamanho da fonte como 1.2 rem */
+    margin: 0.5rem 0 0 0; /* Margem superior de 0.5rem, outras zero */
+    color: #b3b3b3; /* Define a cor como cinza claro */
+}
+
+/* Estiliza o conteúdo principal */
+main {
+    width: 100%; /* Largura total */
+    max-width: 1200px; /* Largura máxima de 1200px */
+    padding: 0 2rem; /* Preenchimento lateral de 2rem */
+}
+
+/* Estiliza a seção */
+section {
+    text-align: center; /* Centraliza o texto */
+}
+
+/* Estiliza o subtítulo na seção */
+section h2 {
+    font-size: 2rem; /* Define o tamanho da fonte como 2 rem */
+    margin-bottom: 2rem; /* Margem inferior de 2rem */
+    color: #ffd700; /* Define a cor como dourado para destaque */
+}
+
+/* Estiliza o contêiner dos perfis */
+.profile-container {
+    display: flex; /* Usa flexbox */
+    justify-content: center; /* Centraliza os itens horizontalmente */
+    gap: 2rem; /* Espaço entre itens de 2rem */
+    flex-wrap: wrap; /* Permite quebra de linha */
+    list-style: none; /* Remove marcadores */
+    padding: 0; /* Remove padding padrão de lista */
+    margin: 0; /* Remove margin padrão de lista */
+}
+
+.profile-container > li {
+    list-style: none; /* Remove marcadores de cada li */
+    padding: 0;
+    margin: 0;
+}
+
+.profile-container ol {
+    list-style: decimal inside;
+    padding: 0;
+    margin: 0;
+}
+
+.profile-container ol > li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+/* Estiliza cada perfil */
+.profile {
+    display: flex; /* Usa flexbox */
+    flex-direction: column; /* Organiza em coluna */
+    align-items: center; /* Centraliza horizontalmente */
+    cursor: pointer; /* Cursor de ponteiro para indicar clicável */
+    transition: transform 0.3s ease; /* Transição suave para transformações */
+}
+
+/* Estiliza o perfil no hover */
+.profile:hover {
+    transform: scale(1.1); /* Aumenta o tamanho em 10% no hover */
+}
+
+/* Estiliza a imagem do perfil */
+.profile img {
+    width: 120px; /* Largura de 120px */
+    height: 120px; /* Altura de 120px */
+    border-radius: 50%; /* Bordas arredondadas para forma circular */
+    object-fit: cover; /* Ajusta a imagem para cobrir o espaço sem distorcer */
+    border: 3px solid transparent; /* Borda transparente de 3px */
+    transition: border-color 0.3s ease; /* Transição suave para cor da borda */
+}
+
+/* Estiliza a imagem do perfil no hover */
+.profile:hover img {
+    border-color: #ffffff; /* Muda a cor da borda para branco no hover */
+}
+
+/* Estiliza o parágrafo do perfil */
+.profile p {
+    margin: 0.5rem 0 0 0; /* Margem superior de 0.5rem */
+    font-size: 1.1rem; /* Tamanho da fonte de 1.1rem */
+    color: #b3b3b3; /* Cor cinza claro */
+    transition: color 0.3s ease; /* Transição suave para cor */
+}
+
+/* Estiliza o parágrafo do perfil no hover */
+.profile:hover p {
+    color: #ffffff; /* Muda a cor para branco no hover */
+}
+
+/* Responsividade: mobile / pequeno */
+@media (max-width: 480px) {
+    body {
+        padding: 0.5rem;
+    }
+
+    header h1 {
+        font-size: 1.6rem;
+    }
+
+    header p {
+        font-size: 1rem;
+    }
+
+    main {
+        padding: 0 1rem;
+    }
+
+    section h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .profile-container {
+        gap: 0.8rem;
+    }
+
+    .profile img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .profile p {
+        font-size: 0.95rem;
+    }
+}
+
+/* Responsividade: tablet */
+@media (min-width: 481px) and (max-width: 768px) {
+    body {
+        padding: 0.75rem;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    header p {
+        font-size: 1.1rem;
+    }
+
+    main {
+        padding: 0 1.5rem;
+    }
+
+    section h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .profile-container {
+        gap: 1rem;
+    }
+
+    .profile img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .profile p {
+        font-size: 1.05rem;
+    }
+}
+
+/* Responsividade: laptop e desktop */
+@media (min-width: 769px) and (max-width: 1024px) {
+    main {
+        padding: 0 2rem;
+    }
+
+    section h2 {
+        font-size: 1.95rem;
+        margin-bottom: 1.8rem;
+    }
+
+    .profile-container {
+        gap: 1.5rem;
+    }
+
+    .profile img {
+        width: 110px;
+        height: 110px;
+    }
+
+    .profile p {
+        font-size: 1.1rem;
+    }
+}
+
+/* Granular desktop extra largo */
+@media (min-width: 1025px) {
+    main {
+        padding: 0 2.5rem;
+    }
+
+    header h1 {
+        font-size: 3.2rem;
+    }
+
+    header p {
+        font-size: 1.25rem;
+    }
+
+    section h2 {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .profile-container {
+        gap: 2rem;
+    }
+
+    .profile img {
+        width: 125px;
+        height: 125px;
+    }
+
+    .profile p {
+        font-size: 1.2rem;
+    }
+}
+

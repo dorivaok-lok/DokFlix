@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOKFLIX</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <h1>DokFlix</h1>
+            <button id="theme-toggle" aria-label="Alternar modo claro / escuro" aria-pressed="false"></button>
+        </div>
+        <p>Escolha o perfil para continuar</p>
+    </header>
+
+    <main>
+        <section aria-labelledby="perfil-title">
+            <h2 id="perfil-title">Quem está assistindo?</h2>
+            <ul class="profile-container" role="list">
+                <li class="profile" role="listitem">
+                    <img src="/assets/perfil-1.png" alt="Ilustração em estilo cartoon de um jovem sorridente em um quarto gamer, vestindo uma camiseta da equipe Titans Esports enquanto utiliza um computador cercado por pôsteres e colecionáveis de jogos.">
+                    <p>RICK</p>
+                </li>
+                <li class="profile" role="listitem">
+                    <img src="/assets/perfil-2.jpg" alt="Ilustração em estilo cartoon de um jovem sorridente com boné , em um quarto gamer, vestindo uma camiseta da equipe Titans Esports enquanto utiliza um computador cercado por pôsteres e colecionáveis de jogos.">
+                    <p>CARDOZO</p>
+                </li>
+                <li class="profile" role="listitem">
+                    <img src="/assets/perfil-3.jpg" alt="Ilustração em estilo cartoon de um jovem sorridente com boné , em um quarto gamer, vestindo uma camiseta da equipe Titans Esports enquanto utiliza um computador cercado por pôsteres e colecionáveis de jogos.">
+                    <p>MATARAZZO</p>
+                </li>
+                <li class="profile" role="listitem">
+                    <img src="/assets/perfil-4.jpg" alt="Ilustração em estilo cartoon de um jovem sorridente com boné , em um quarto gamer, vestindo uma camiseta da equipe Titans Esports enquanto utiliza um computador cercado por pôsteres e colecionáveis de jogos.">
+                    <p>CABRINI</p>
+                </li>
+            </ul>
+        </section>
+    </main>
+
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        function applyTheme(theme) {
+            if (theme === 'light') {
+                body.classList.add('light-mode');
+                body.classList.remove('dark-mode');
+                themeToggle.classList.add('active');
+                themeToggle.setAttribute('aria-pressed', 'true');
+            } else {
+                body.classList.add('dark-mode');
+                body.classList.remove('light-mode');
+                themeToggle.classList.remove('active');
+                themeToggle.setAttribute('aria-pressed', 'false');
+            }
+            localStorage.setItem('dokflix-theme', theme);
+        }
+
+        const savedTheme = localStorage.getItem('dokflix-theme');
+        const initialTheme = savedTheme === 'light' ? 'light' : 'dark';
+        applyTheme(initialTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const nextTheme = body.classList.contains('light-mode') ? 'dark' : 'light';
+            applyTheme(nextTheme);
+        });
+
+        // Adiciona evento de clique aos perfis para abrir o catálogo
+        const profiles = document.querySelectorAll('.profile');
+        profiles.forEach(profile => {
+            profile.addEventListener('click', () => {
+                // Extrai o nome do perfil do elemento <p>
+                const perfilNome = profile.querySelector('p').textContent;
+                // Extrai a imagem do perfil do elemento <img>
+                const perfilImagem = profile.querySelector('img').src;
+                
+                // Armazena o nome do perfil ativo no localStorage
+                localStorage.setItem('perfilAtivoNome', perfilNome);
+                // Armazena a imagem do perfil ativo no localStorage
+                localStorage.setItem('perfilAtivoImagem', perfilImagem);
+                
+                // Redireciona para o catálogo
+                window.location.href = 'catalogo/catalogo.html';
+            });
+            // Adiciona cursor pointer para indicar que é clicável
+            profile.style.cursor = 'pointer';
+        });
+    </script>
+    <script src="/assets/js/index.js"></script>
+</body>
+
+</html>
