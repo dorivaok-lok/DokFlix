@@ -1,6 +1,9 @@
 // Importa funções utilitárias para gerar dados aleatórios dos cards
 import { getYouTubeId, getRandomMatchScore, getRandomDuration, getRandomAgeBadge } from '../utils.js';
 
+// Constantes
+const THUMB_BASE = 'https://img.youtube.com/vi/';
+
 // Cria um elemento de card (filme/série) com imagem, detalhes e preview de vídeo
 export function createCard(item) {
     // Cria o container principal do card
@@ -11,18 +14,36 @@ export function createCard(item) {
         card.classList.add('has-progress');
     }
 
+    // Extrai o ID do vídeo YouTube
+    const videoId = getYouTubeId(item.youtube);
+
     // Cria a imagem do filme/série
     const img = document.createElement('img');
-    img.src = item.img;
+    img.src = item.img ? item.img : `${THUMB_BASE}${videoId}/maxresdefault.jpg`;
     img.alt = `Movie cover`;
+    img.loading = 'lazy';
+    img.dataset.thumbnailStage = item.img ? 'custom' : 'max';
+    img.onerror = function() {
+        if (this.dataset.thumbnailStage === 'max') {
+            this.dataset.thumbnailStage = 'hq';
+            this.src = `${THUMB_BASE}${videoId}/hqdefault.jpg`;
+        } else if (this.dataset.thumbnailStage === 'hq') {
+            this.dataset.thumbnailStage = 'mq';
+            this.src = `${THUMB_BASE}${videoId}/mqdefault.jpg`;
+        } else if (this.dataset.thumbnailStage === 'custom') {
+            this.dataset.thumbnailStage = 'hq';
+            this.src = `${THUMB_BASE}${videoId}/hqdefault.jpg`;
+        } else {
+            this.dataset.thumbnailStage = 'placeholder';
+            this.src = 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22250%22%20height%3D%22140%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Crect%20width%3D%22250%22%20height%3D%22140%22%20fill%3D%22%23111111%22/%3E%3Ctext%20x%3D%22125%22%20y%3D%2275%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2214%22%20fill%3D%22%23ffffff%22%20text-anchor%3D%22middle%22%3ESem%20thumbnail%3C/text%3E%3C/svg%3E';
+        }
+    };
 
     // Cria um iframe para reproduzir o vídeo do YouTube ao passar o mouse
     const iframe = document.createElement('iframe');
     iframe.frameBorder = "0";
     iframe.allow = "autoplay; encrypted-media";
-
-    // Extrai o ID do vídeo YouTube
-    const videoId = getYouTubeId(item.youtube);
+    iframe.loading = 'lazy';
 
     // Adiciona o iframe e a imagem ao card
     card.appendChild(iframe);
@@ -58,6 +79,16 @@ export function createCard(item) {
         </div>
     `;
     card.appendChild(details);
+
+    // Event for play button
+    const playBtn = details.querySelector('.btn-play-icon');
+    playBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const modal = document.getElementById('video-modal');
+        const modalIframe = document.getElementById('modal-iframe');
+        modalIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&controls=1`;
+        modal.style.display = 'block';
+    });
 
 
     // Se o item tem progresso de visualização, cria uma barra de progresso

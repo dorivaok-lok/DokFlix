@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DOKFLIX - Plataforma de documentários e vídeos do YouTube. Escolha seu perfil e explore conteúdos incríveis.">
+    <meta name="keywords" content="documentários, YouTube, vídeos, Netflix clone">
+    <meta property="og:title" content="DOKFLIX - Seu catálogo de documentários">
+    <meta property="og:description" content="Explore vídeos e documentários de canais como Dorivox, DJ Dvox e mais.">
+    <meta property="og:image" content="assets/dokflix.jpg">
+    <meta property="og:url" content="https://seudominio.com">
+    <meta property="og:type" content="website">
     <title>DOKFLIX</title>
     <link rel="stylesheet" href="style.css">
 
@@ -40,56 +47,7 @@
         </section>
     </main>
 
-    <script>
-        const themeToggle = document.getElementById('theme-toggle');
-        const body = document.body;
-
-        function applyTheme(theme) {
-            if (theme === 'light') {
-                body.classList.add('light-mode');
-                body.classList.remove('dark-mode');
-                themeToggle.classList.add('active');
-                themeToggle.setAttribute('aria-pressed', 'true');
-            } else {
-                body.classList.add('dark-mode');
-                body.classList.remove('light-mode');
-                themeToggle.classList.remove('active');
-                themeToggle.setAttribute('aria-pressed', 'false');
-            }
-            localStorage.setItem('dokflix-theme', theme);
-        }
-
-        const savedTheme = localStorage.getItem('dokflix-theme');
-        const initialTheme = savedTheme === 'light' ? 'light' : 'dark';
-        applyTheme(initialTheme);
-
-        themeToggle.addEventListener('click', () => {
-            const nextTheme = body.classList.contains('light-mode') ? 'dark' : 'light';
-            applyTheme(nextTheme);
-        });
-
-        // Adiciona evento de clique aos perfis para abrir o catálogo
-        const profiles = document.querySelectorAll('.profile');
-        profiles.forEach(profile => {
-            profile.addEventListener('click', () => {
-                // Extrai o nome do perfil do elemento <p>
-                const perfilNome = profile.querySelector('p').textContent;
-                // Extrai a imagem do perfil do elemento <img>
-                const perfilImagem = profile.querySelector('img').src;
-                
-                // Armazena o nome do perfil ativo no localStorage
-                localStorage.setItem('perfilAtivoNome', perfilNome);
-                // Armazena a imagem do perfil ativo no localStorage
-                localStorage.setItem('perfilAtivoImagem', perfilImagem);
-                
-                // Redireciona para o catálogo
-                window.location.href = 'catalogo/catalogo.html';
-            });
-            // Adiciona cursor pointer para indicar que é clicável
-            profile.style.cursor = 'pointer';
-        });
-    </script>
-    <script src="/assets/js/index.js"></script>
+    <script src="js/profile.js"></script>
 </body>
 
 </html>

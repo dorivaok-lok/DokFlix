@@ -1,11 +1,21 @@
 // Extrai o ID do vídeo YouTube a partir da URL
 // Retorna um ID padrão se a URL for inválida
 export function getYouTubeId(url) {
-    if (!url) return "7RUA0IOfar8";
-    if (url.includes('v=')) {
-        return url.split('v=')[1].split('&')[0];
+    if (!url || typeof url !== 'string') return "7RUA0IOfar8"; // ID padrão
+    try {
+        if (url.includes('v=')) {
+            return url.split('v=')[1].split('&')[0];
+        }
+        if (url.includes('youtu.be/')) {
+            return url.split('youtu.be/')[1].split('?')[0];
+        }
+        if (url.includes('/embed/')) {
+            return url.split('/embed/')[1].split('?')[0];
+        }
+        return url.split('/').pop().split('?')[0];
+    } catch (e) {
+        return "7RUA0IOfar8";
     }
-    return url.split('/').pop();
 }
 
 // Gera um percentual aleatório de relevância entre 80% e 100%

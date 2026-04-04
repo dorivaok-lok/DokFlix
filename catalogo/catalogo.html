@@ -4,6 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Catálogo DOKFLIX - Assista previews de documentários e vídeos do YouTube.">
+    <meta name="keywords" content="catálogo, documentários, YouTube, previews">
+    <meta property="og:title" content="Catálogo DOKFLIX">
+    <meta property="og:description" content="Navegue por categorias como Dorivox, DJ Dvox e assista previews.">
+    <meta property="og:image" content="../assets/dokflix.jpg">
+    <meta property="og:url" content="https://seudominio.com/catalogo">
+    <meta property="og:type" content="website">
     <title>Dokflix Clone</title>
     <link rel="stylesheet" href="catalogo.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -14,11 +21,11 @@
     <!-- Navbar -->
     <header class="navbar" id="navbar">
         <div class="navbar-left">
-            <img class="logo" src="assets/dokflix.jpg"
-                alt="Dokflix">
+            <img class="logo" src="/assets/dokflix.jpg"
+                alt="Netflix">
             <nav>
                 <ul class="nav-links">
-                    <li><a href="index.html" class="active">Início</a></li>
+                    <li><a href="/index.html" class="active">Início</a></li>
                     <li><a href="https://www.youtube.com/@DoriVox">Dorivox</a></li>
                     <li><a href="https://www.youtube.com/@DJ-Dvox">DJ Dvox</a></li>
                     <li><a href="https://www.youtube.com/@DOKSignal">DOK Signal</a></li>
@@ -29,7 +36,10 @@
             </nav>
         </div>
         <div class="navbar-right">
-            <i class="fas fa-search icon"></i>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Buscar..." aria-label="Buscar filmes ou séries">
+                <i class="fas fa-search icon search-icon"></i>
+            </div>
             <a href="../index.html" class="kids-link">Seu nome</a>
             <div class="nav-notification">
                 <i class="fas fa-bell icon"></i>
@@ -47,6 +57,14 @@
     <main class="sliders-container" id="main-content">
         <!-- Javascript will inject the rows here -->
     </main>
+
+    <!-- Modal for full video -->
+    <div id="video-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <iframe id="modal-iframe" width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer>

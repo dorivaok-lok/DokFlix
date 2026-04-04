@@ -23,13 +23,56 @@ document.addEventListener('DOMContentLoaded', () => {
     // Seleciona o container principal onde os carrosséis serão inseridos
     const container = document.getElementById('main-content');
     
-    // Para cada categoria, cria um carrossel e adiciona ao DOM
-    if (container) {
-        categories.forEach(category => {
-            // Cria um carrossel para a categoria
-            const carousel = createCarousel(category);
-            // Adiciona o carrossel ao container
-            container.appendChild(carousel);
+    // Função para renderizar carrosséis
+    function renderCarousels(cats) {
+        if (container) {
+            container.innerHTML = ''; // Clear existing
+            cats.forEach(category => {
+                // Cria um carrossel para a categoria
+                const carousel = createCarousel(category);
+                // Adiciona o carrossel ao container
+                container.appendChild(carousel);
+            });
+        }
+    }
+
+    // Renderiza inicialmente todos os carrosséis
+    renderCarousels(categories);
+
+    // Modal close
+    const modal = document.getElementById('video-modal');
+    const closeBtn = document.querySelector('.close');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+            document.getElementById('modal-iframe').src = '';
+        });
+    }
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+            document.getElementById('modal-iframe').src = '';
+        }
+    });
+
+    // Busca
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            if (query) {
+                const filteredCategories = categories.map(cat => ({
+                    ...cat,
+                    items: cat.items.filter(item => 
+                        cat.title.toLowerCase().includes(query) || 
+                        item.youtube.toLowerCase().includes(query) ||
+                        (item.badge && item.badge.toLowerCase().includes(query))
+                    )
+                })).filter(cat => cat.items.length > 0);
+                renderCarousels(filteredCategories);
+            } else {
+                renderCarousels(categories);
+            }
         });
     }
     // Fim do evento DOMContentLoaded
